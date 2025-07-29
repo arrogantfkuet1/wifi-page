@@ -1,0 +1,22 @@
+body {
+  font-family: sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+  padding: 20px;
+}
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+.ad-box img {
+  max-width: 100%;
+  height: auto;
+}
+.btns button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
