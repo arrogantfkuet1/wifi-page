@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Wi-Fi広告表示</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%; background: #000;
+      font-family: sans-serif;
+    }
+    #video-container, #info-box {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; justify-content: center; align-items: center;
+      flex-direction: column;
+    }
+    video {
+      width: 100%; height: auto;
+      max-height: 100%;
+    }
+
+    /* スキップ系の共通スタイル */
+    #skip-button, #skip-text {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 15px;
+      background: rgba(255,255,255,0.9);
+      color: #000;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    #skip-button {
+      display: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #info-box {
+      display: none;
+      background: white;
+      color: black;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 動画広告 -->
+<div id="video-container">
+  <video id="ad-video" autoplay muted playsinline>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    広告を再生できません
+  </video>
+  <div id="skip-text">5秒後にスキップできます</div>
+  <button id="skip-button">スキップ</button>
+</div>
+
+<!-- Wi-Fi案内ページ -->
+<div id="info-box">
+  <h2>Wi-Fi接続情報</h2>
+  <p>SSID: <strong>MyFreeWiFi001</strong></p>
+  <p>パスワード: <strong>12345678</strong></p>
+  <p>QRコード:</p>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?data=WIFI:T:WPA;S:MyFreeWiFi001;P:12345678;;&size=200x200" alt="QR">
+</div>
+
+<script>
+  const skipText = document.getElementById('skip-text');
+  const skipButton = document.getElementById('skip-button');
+  const video = document.getElementById('ad-video');
+  const videoContainer = document.getElementById('video-container');
+  const infoBox = document.getElementById('info-box');
+
+  // 5秒後にスキップボタン表示・テキスト非表示
+  setTimeout(() => {
+    skipText.style.display = 'none';
+    skipButton.style.display = 'block';
+  }, 5000);
+
+  // スキップボタン押下時
+  skipButton.addEventListener('click', () => {
+    videoContainer.style.display = 'none';
+    infoBox.style.display = 'flex';
+    video.pause();
+  });
+
+  // 動画再生完了時
+  video.addEventListener('ended', () => {
+    videoContainer.style.display = 'none';
+    infoBox.style.display = 'flex';
+  });
+
+  // Interstitial広告（PropellerAds）
+  (function(d,z,s){
+    s.src='https://'+d+'/401/'+z;
+    try { (document.body||document.documentElement).appendChild(s); }
+    catch(e){}
+  })('groleegni.net',9644602,document.createElement('script'));
+</script>
+
+</body>
+</html>
